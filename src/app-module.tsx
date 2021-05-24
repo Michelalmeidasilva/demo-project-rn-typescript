@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, DefaultTheme, ExtendedTheme } from '@react-navigation/native';
 import { ThemeProvider } from 'styled-components/native';
 
+import { AuthenticadedApp } from 'src/navigators/AuthenticadedApp';
 import { AppProviders } from 'src/context';
 
 import { theme } from 'src/theme';
@@ -14,9 +15,11 @@ if (__DEV__) {
   import('../ReactotronConfig').then(() => console.log('Reactotron Configured'));
 }
 
-const Test = () => <Text>aaaa</Text>;
-
 const App: FC = () => {
+  const user = {
+    username: 'michel',
+    password: '12345678'
+  };
   const MyTheme: ExtendedTheme = {
     ...DefaultTheme,
     colors: {
@@ -29,7 +32,7 @@ const App: FC = () => {
     <SafeAreaProvider>
       <NavigationContainer theme={MyTheme}>
         <Routes />
-        <Test></Test>
+        {!user ? <UnauthenticatedApp /> : <AuthenticadedApp />}
       </NavigationContainer>
     </SafeAreaProvider>
   );
