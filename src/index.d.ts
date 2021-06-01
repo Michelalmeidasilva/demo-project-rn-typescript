@@ -1,4 +1,5 @@
 import '@react-navigation/native';
+import 'styled-components';
 
 // Override the theme in react native navigation to accept our custom theme props.
 declare module '@react-navigation/native' {
@@ -34,8 +35,6 @@ declare module '@react-navigation/native' {
   export function useTheme(): ExtendedTheme;
 }
 
-import 'styled-components';
-
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
@@ -44,6 +43,7 @@ declare module 'styled-components' {
       error: string;
       warning: string;
       success: string;
+      primary: string;
       gray: {
         n50: string;
         n100: string;

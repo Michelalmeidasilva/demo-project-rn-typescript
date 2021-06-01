@@ -1,10 +1,13 @@
 import React, { FC } from 'react';
-import { Text, View } from 'react-native';
+
+import { Text, Column } from 'src/components';
 
 const Signup: FC = () => (
-  <View>
-    <Text>Tela de Cadastro</Text>
-  </View>
+  <Column alignItems='center'>
+    <Text color='gray.n800' textAlign='center' fontWeight={400} marginTop='8px' variant='bigger'>
+      Signup
+    </Text>
+  </Column>
 );
 
 export default Signup;

@@ -5,7 +5,7 @@ import { IconButton, Colors } from 'react-native-paper';
 
 const DrawerHeader: FC = () => {
   const navigation = useNavigation();
-  console.log('Drawer Header !');
+
   return (
     <IconButton
       icon='menu'

@@ -1,23 +1,13 @@
 import React, { FC } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
 
-const Recrutamento: FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Recrutamento</Text>
-    </View>
-  );
-};
+import { Text, Column } from 'src/components';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 10
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 40
-  }
-});
+const Recrutamento: FC = () => (
+  <Column alignItems='center'>
+    <Text color='gray.n800' textAlign='center' fontWeight={400} marginTop='8px' variant='bigger'>
+      Recrutamento
+    </Text>
+  </Column>
+);
+
 export default Recrutamento;

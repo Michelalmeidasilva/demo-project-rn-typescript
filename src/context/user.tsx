@@ -3,10 +3,10 @@ import React, { FC, useState, useEffect, useContext, createContext } from 'react
 import { getToken, setToken, clearToken, setStorageUser, getStorageUser } from 'src/utils';
 import { loginUser } from 'src/services';
 
-interface User {
+export interface User {
   email: string | null | undefined;
   password: string | null | undefined;
-  nome?: string;
+  name?: string;
 }
 
 export interface CredentialsParams {
@@ -33,10 +33,12 @@ const UserProvider: FC = ({ children }) => {
   const login: (credentials: CredentialsParams) => void = async credentials => {
     try {
       const loginResponse = loginUser();
-      const mock = credentials as User;
       setToken(loginResponse.token);
-      mock.nome = 'test';
+
+      const mock = credentials as User;
+      mock.name = 'test';
       setStorageUser(mock);
+
       await fetchUser();
     } catch (error) {
       console.log(error);
@@ -49,9 +51,8 @@ const UserProvider: FC = ({ children }) => {
     try {
       if (token) {
         const userStorage: any = await getStorageUser();
-        if (userStorage) {
-          setUser(JSON.parse(userStorage) as User);
-        }
+
+        if (userStorage) setUser(JSON.parse(userStorage) as User);
       }
     } catch (err) {
       console.log(err);

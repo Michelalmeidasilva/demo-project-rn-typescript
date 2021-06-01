@@ -1,1 +1,6 @@
-{"name": "src"}
+{
+  "name": "src",
+  "devDependencies": {
+    "@types/react-native-vector-icons": "^6.4.6"
+  }
+}

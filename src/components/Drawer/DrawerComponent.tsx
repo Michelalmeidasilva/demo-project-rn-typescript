@@ -1,58 +1,44 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import { IconButton } from 'react-native-paper';
 
 import { useUser } from 'src/context';
 import { DrawerItem } from './DrawerItem';
-import { Column, Row, Text } from 'src/components';
+import { Column, Text } from 'src/components';
+
 interface DrawerComponentsProps {
   navigation: any;
   routes: any;
 }
 
-const DrawerComponent: FC<DrawerComponentsProps> = ({ navigation: { navigate }, routes }) => {
+const DrawerComponent: FC<DrawerComponentsProps> = ({ navigation: { navigate } }) => {
   const { logout, user } = useUser();
-  const { Home, Calendario, Recrutamento } = routes;
-  const handleLogout = () => {
-    console.log('Logout');
-    logout();
-  };
+
   return (
-    <DrawerMenuItems>
-      <Perfil>
-        <IconButton icon='camera' size={33}></IconButton>
+    <>
+      <Column bg='white' p='1'>
+        <IconButton icon='camera' size={33} />
+
         <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='tiny'>
           Editar perfil
         </Text>
 
         <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='smaller'>
-          nome:{user?.nome}
+          nome:{user?.name}
         </Text>
+
         <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='smaller'>
           email:{user?.email}
         </Text>
-      </Perfil>
-      <DrawerItem title={Recrutamento.name} onPressed={() => navigate(Recrutamento.route)} />
-      <DrawerItem title={Calendario.name} onPressed={() => navigate(Calendario.route)} />
-      <DrawerItem title={Home.name} onPressed={() => navigate(Home.route)} />
-      <DrawerItem title='Sair' onPressed={() => handleLogout()} />
-    </DrawerMenuItems>
-  );
-};
+      </Column>
 
-interface DrawerMenuItemsProps {
-  children?: React.ReactNode;
-}
+      <DrawerItem title='Recrutamento' onPress={() => navigate('Recrutamento')} />
 
-const DrawerMenuItems: FC<DrawerMenuItemsProps> = ({ children }) => {
-  return <Column>{children}</Column>;
-};
+      <DrawerItem title='Calendario' onPress={() => navigate('Calendario')} />
 
-const Perfil: FC<any> = ({ children }) => {
-  return (
-    <Column bg='white' p='1'>
-      {children}
-    </Column>
+      <DrawerItem title='Home' onPress={() => navigate('Home')} />
+
+      <DrawerItem title='Sair' onPress={logout} />
+    </>
   );
 };
 

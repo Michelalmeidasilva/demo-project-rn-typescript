@@ -1,24 +1,22 @@
 import React, { FC } from 'react';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { Text } from 'src/components';
 
 export interface DrawerItemProps {
-  onPressed: any;
+  onPress(): void;
   title: string;
 }
 
-export const DrawerItem: FC<DrawerItemProps> = ({ onPressed, title }) => {
-  return (
-    <TouchableOpacity style={style.button} onPress={() => onPressed()}>
-      <Text style={style.title}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
+export const DrawerItem: FC<DrawerItemProps> = ({ onPress, title }) => (
+  <TouchableOpacity style={style.button} onPress={onPress}>
+    <Text color='gray.n800' fontWeight={400} variant='regular'>
+      {title}
+    </Text>
+  </TouchableOpacity>
+);
 
 const style = StyleSheet.create({
-  title: {
-    fontSize: 18
-  },
   button: {
     margin: 3,
     padding: 10,

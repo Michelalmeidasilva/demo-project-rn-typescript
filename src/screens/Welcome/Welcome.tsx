@@ -1,29 +1,14 @@
 import React, { FC } from 'react';
-import { Text, View, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
+import { Text, Column } from 'src/components';
 
 const Welcome: FC = () => {
-  const navigation = useNavigation<any>();
-
   return (
-    <View>
-      <Text>Welcome</Text>
-      <Button
-        color='green'
-        title='Login'
-        onPress={() => {
-          navigation.push('Login');
-        }}
-      />
-      <Button
-        color='#123658'
-        title='Create new Account'
-        onPress={() => {
-          console.log('lola');
-          navigation.push('Signup');
-        }}
-      />
-    </View>
+    <Column>
+      <Text color='gray.n800' textAlign='center' fontWeight={400} marginTop='8px' variant='bigger'>
+        Welcome
+      </Text>
+    </Column>
   );
 };
 

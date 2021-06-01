@@ -1,25 +1,13 @@
-import React, { FC, useState } from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import React, { FC } from 'react';
+
 import { Column, Text } from 'src/components';
 
-const Home: FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 10
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 40
-  }
-});
+const Home: FC = () => (
+  <Column alignItems='center'>
+    <Text color='gray.n800' textAlign='center' fontWeight={400} marginTop='8px' variant='bigger'>
+      Home
+    </Text>
+  </Column>
+);
 
 export default Home;

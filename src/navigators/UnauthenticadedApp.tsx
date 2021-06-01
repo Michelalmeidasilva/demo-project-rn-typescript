@@ -1,21 +1,17 @@
 import React, { FC } from 'react';
+
 import { createStackNavigator } from '@react-navigation/stack';
-import { getUnauthenticatedRoutes } from 'src/routes';
+
+import { Login, PasswordReset, Signup } from 'src/screens';
 
 const { Navigator, Screen } = createStackNavigator();
 
-const UnauthenticatedAppStack = () => {
-  const { Login, PasswordReset, Signup } = getUnauthenticatedRoutes();
-  return (
-    <Navigator initialRouteName='Login'>
-      <Screen name={Login.name} component={Login.component} />
-      <Screen name={PasswordReset.name} component={PasswordReset.component} />
-      <Screen name={Signup.name} component={Signup.component} />
-    </Navigator>
-  );
-};
-const UnauthenticadedApp = (): JSX.Element => {
-  return <UnauthenticatedAppStack />;
-};
+const UnauthenticadedApp = (): JSX.Element => (
+  <Navigator initialRouteName='Login'>
+    <Screen name='Login' component={Login} />
+    <Screen name='Password' component={PasswordReset} />
+    <Screen name='Signup' component={Signup} />
+  </Navigator>
+);
 
 export default UnauthenticadedApp;
