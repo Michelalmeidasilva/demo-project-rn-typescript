@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
+
 import {
   space,
   layout,
