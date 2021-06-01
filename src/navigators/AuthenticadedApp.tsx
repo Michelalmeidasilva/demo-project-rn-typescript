@@ -8,11 +8,14 @@ import { getAuthenticatedRoutes } from 'src/routes';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+const routes = getAuthenticatedRoutes();
 
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
-      drawerContent={(props: any): JSX.Element => <DrawerComponent {...props} />}
+      drawerContent={(props: any): JSX.Element => (
+        <DrawerComponent {...props} routes={routes}></DrawerComponent>
+      )}
       drawerStyle={{ width: '60%', backgroundColor: 'white' }}
       screenOptions={{ headerShown: false }}
     >
@@ -22,7 +25,7 @@ const DrawerNavigator = () => {
 };
 
 const AuthenticatedAppStack = () => {
-  const { Home, Calendario, Recrutamento } = getAuthenticatedRoutes();
+  const { Home, Calendario, Recrutamento } = routes;
   return (
     <Stack.Navigator initialRouteName={Home.name} screenOptions={ScreenOptions}>
       <Stack.Screen name={Home.name} component={Home.component} />

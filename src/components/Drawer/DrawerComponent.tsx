@@ -1,65 +1,59 @@
 import React, { FC } from 'react';
-import { ScrollView, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import { Column, Row } from 'src/components';
-import { AuthenticatedRoutes } from 'src/Routes';
-import { useUser, useRoute } from 'src/context';
+import styled from 'styled-components';
+import { IconButton } from 'react-native-paper';
 
+import { useUser } from 'src/context';
+import { DrawerItem } from './DrawerItem';
+import { Column, Row, Text } from 'src/components';
 interface DrawerComponentsProps {
   navigation: any;
   routes: any;
 }
 
-const DrawerComponent: FC<DrawerComponentsProps> = ({ navigation }) => {
+const DrawerComponent: FC<DrawerComponentsProps> = ({ navigation: { navigate }, routes }) => {
   const { logout, user } = useUser();
-  const { Home, Calendario, Recrutamento } = AuthenticatedRoutes();
-
+  const { Home, Calendario, Recrutamento } = routes;
   const handleLogout = () => {
     console.log('Logout');
     logout();
   };
-
-  console.log('Drawer Component !');
   return (
-    <Column bg='white' flex={1} paddingTop={'24px'}>
-      <Row />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <ButtonItem title={Home.name} onPressed={() => navigation.navigate(Home.route)} />
-        <ButtonItem
-          title={Recrutamento.name}
-          onPressed={() => navigation.navigate(Recrutamento.route)}
-        />
-        <ButtonItem
-          title={Calendario.name}
-          onPressed={() => navigation.navigate(Calendario.route)}
-        />
-        <ButtonItem title='Sair' onPressed={() => handleLogout()} />
-      </ScrollView>
+    <DrawerMenuItems>
+      <Perfil>
+        <IconButton icon='camera' size={33}></IconButton>
+        <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='tiny'>
+          Editar perfil
+        </Text>
+
+        <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='smaller'>
+          nome:{user?.nome}
+        </Text>
+        <Text color='gray.n800' fontWeight={400} marginTop='8px' variant='smaller'>
+          email:{user?.email}
+        </Text>
+      </Perfil>
+      <DrawerItem title={Recrutamento.name} onPressed={() => navigate(Recrutamento.route)} />
+      <DrawerItem title={Calendario.name} onPressed={() => navigate(Calendario.route)} />
+      <DrawerItem title={Home.name} onPressed={() => navigate(Home.route)} />
+      <DrawerItem title='Sair' onPressed={() => handleLogout()} />
+    </DrawerMenuItems>
+  );
+};
+
+interface DrawerMenuItemsProps {
+  children?: React.ReactNode;
+}
+
+const DrawerMenuItems: FC<DrawerMenuItemsProps> = ({ children }) => {
+  return <Column>{children}</Column>;
+};
+
+const Perfil: FC<any> = ({ children }) => {
+  return (
+    <Column bg='white' p='1'>
+      {children}
     </Column>
   );
 };
 
-interface ButtonItemProps {
-  onPressed: any;
-  title: string;
-}
-
-const ButtonItem: FC<ButtonItemProps> = ({ onPressed, title }) => {
-  return (
-    <TouchableOpacity style={style.button} onPress={() => onPressed()}>
-      <Row>
-        <Text style={style.title}>{title}</Text>
-      </Row>
-    </TouchableOpacity>
-  );
-};
-
-const style = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    marginLeft: 20
-  },
-  button: {
-    marginTop: 24
-  }
-});
 export default DrawerComponent;

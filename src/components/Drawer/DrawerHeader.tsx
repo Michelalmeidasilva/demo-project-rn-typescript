@@ -12,7 +12,7 @@ const DrawerHeader: FC = () => {
       color={Colors.black}
       size={32}
       onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-    ></IconButton>
+    />
   );
 };
 
