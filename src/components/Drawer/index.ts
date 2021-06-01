@@ -1,1 +1,2 @@
-export { default as Drawer } from './Drawer';
+export { default as DrawerComponent } from './DrawerComponent';
+export { default as DrawerHeader } from './DrawerHeader';

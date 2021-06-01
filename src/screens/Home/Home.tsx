@@ -1,18 +1,25 @@
-import React, { FC } from 'react';
-import { useTheme } from '@react-navigation/native';
-
+import React, { FC, useState } from 'react';
+import { View, Button, StyleSheet } from 'react-native';
 import { Column, Text } from 'src/components';
 
 const Home: FC = () => {
-  const { colors } = useTheme();
-
   return (
-    <Column alignItems='center' flex={1} justifyContent='center'>
-      <Text color={colors.primary} variant='regular'>
-        Built with react-native-nave-typescript
-      </Text>
-    </Column>
+    <View style={styles.container}>
+      <Text style={styles.title}>Home</Text>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 10
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 40
+  }
+});
 
 export default Home;

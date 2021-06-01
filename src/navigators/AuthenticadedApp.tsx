@@ -1,18 +1,39 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Home } from 'src/components/';
+import { DrawerComponent } from 'src/components';
+import { ScreenOptions } from 'src/utils';
+import { getAuthenticatedRoutes } from 'src/routes';
 
-const { Navigator, Screen } = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-const AuthenticadedApp = (): JSX.Element => {
+const DrawerNavigator = () => {
   return (
-    <>
-      <Navigator screenOptions={{ headerShown: false }}>
-        <Screen name='RightStack' component={Home} />
-      </Navigator>
-    </>
+    <Drawer.Navigator
+      drawerContent={(props: any): JSX.Element => <DrawerComponent {...props} />}
+      drawerStyle={{ width: '60%', backgroundColor: 'white' }}
+      screenOptions={{ headerShown: false }}
+    >
+      <Drawer.Screen name='AuthenticatedAppStack' component={AuthenticatedAppStack} />
+    </Drawer.Navigator>
   );
+};
+
+const AuthenticatedAppStack = () => {
+  const { Home, Calendario, Recrutamento } = getAuthenticatedRoutes();
+  return (
+    <Stack.Navigator initialRouteName={Home.name} screenOptions={ScreenOptions}>
+      <Stack.Screen name={Home.name} component={Home.component} />
+      <Stack.Screen name={Calendario.name} component={Calendario.component} />
+      <Stack.Screen name={Recrutamento.name} component={Recrutamento.component} />
+    </Stack.Navigator>
+  );
+};
+
+const AuthenticadedApp: FC = () => {
+  return <DrawerNavigator />;
 };
 
 export default AuthenticadedApp;
