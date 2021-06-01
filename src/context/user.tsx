@@ -1,11 +1,16 @@
 import React, { FC, useState, useEffect, useContext, createContext } from 'react';
 
-import { getToken, clearToken } from 'src/utils';
+import { getToken, setToken, clearToken, setStorageUser, getStorageUser } from 'src/utils';
+import { loginUser } from 'src/services';
 
-interface User {}
+interface User {
+  email: string | null | undefined;
+  password: string | null | undefined;
+  nome?: string;
+}
 
-interface CredentialsParams {
-  username: string;
+export interface CredentialsParams {
+  email: string;
   password: string;
 }
 
@@ -13,54 +18,54 @@ type ContextProps = {
   user: User | null | undefined;
   isFetchingUser: boolean;
   isFetchingToken: boolean;
-  setUser: Function;
-  login: (credentials: CredentialsParams) => Promise<void>;
+  setUser: any;
+  login: (credentials: CredentialsParams) => void;
   logout: () => void;
 };
 
 const UserContext = createContext({} as ContextProps);
-
-const useUser: () => ContextProps = () => useContext(UserContext);
 
 const UserProvider: FC = ({ children }) => {
   const [isFetchingUser, setIsFetchingUser] = useState<boolean>(true);
   const [isFetchingToken, setIsFetchingToken] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>();
 
-  const fetchUser: () => Promise<void> = async () => {
-    const token = await getToken();
+  const login: (credentials: CredentialsParams) => void = async credentials => {
+    try {
+      const loginResponse = loginUser();
+      const mock = credentials as User;
+      setToken(loginResponse.token);
+      mock.nome = 'test';
+      setStorageUser(mock);
+      await fetchUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    setIsFetchingUser(true);
+  const fetchUser = async () => {
+    const token = await getToken();
 
     try {
       if (token) {
+        const userStorage: any = await getStorageUser();
+        if (userStorage) {
+          setUser(JSON.parse(userStorage) as User);
+        }
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsFetchingUser(false);
-    }
-  };
-
-  const login: (credentials: CredentialsParams) => Promise<void> = async credentials => {
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const logout: () => Promise<void> = async () => {
-    try {
-      setUser(null);
-      await clearToken();
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
     fetchUser();
   }, []);
+
+  const logout = async () => {
+    await clearToken();
+    setUser(null);
+  };
 
   return (
     <UserContext.Provider
@@ -77,5 +82,7 @@ const UserProvider: FC = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+const useUser: () => ContextProps = () => useContext(UserContext);
 
 export { UserProvider, useUser };
