@@ -6,10 +6,10 @@ import { Login, PasswordReset, Signup } from 'src/screens';
 
 const { Navigator, Screen } = createStackNavigator();
 
-const UnauthenticadedApp = (): JSX.Element => (
-  <Navigator initialRouteName='Login'>
+const UnauthenticadedApp: FC = (): JSX.Element => (
+  <Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
     <Screen name='Login' component={Login} />
-    <Screen name='Password' component={PasswordReset} />
+    <Screen name='PasswordReset' component={PasswordReset} />
     <Screen name='Signup' component={Signup} />
   </Navigator>
 );
