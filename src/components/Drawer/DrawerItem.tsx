@@ -1,31 +1,32 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-import { Text } from 'src/components';
-
+import { Row } from 'src/components';
 export interface DrawerItemProps {
   onPress(): void;
-  title: string;
+  children: React.ReactNode;
 }
 
-export const DrawerItem: FC<DrawerItemProps> = ({ onPress, title }) => (
-  <TouchableOpacity style={style.button} onPress={onPress}>
-    <Text color='gray.n800' fontWeight={400} variant='regular'>
-      {title}
-    </Text>
+export const DrawerItem: FC<DrawerItemProps> = ({ onPress, children }) => (
+  <TouchableOpacity
+    style={{
+      height: 50,
+      justifyContent: 'center',
+      backgroundColor: 'white',
+      marginTop: 1,
+      elevation: 5,
+      shadowOffset: {
+        height: 2,
+        width: 0
+      },
+      shadowOpacity: 0.2
+    }}
+    onPress={onPress}
+  >
+    <Row alignItems='center' ml='10px'>
+      {children}
+    </Row>
   </TouchableOpacity>
 );
-
-const style = StyleSheet.create({
-  button: {
-    margin: 3,
-    padding: 10,
-    justifyContent: 'center',
-    height: 50,
-    backgroundColor: 'white',
-    alignContent: 'center',
-    elevation: 1
-  }
-});
 
 export default DrawerItem;
