@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { Text, Column } from 'src/components';
 
-const Calendario: FC = () => (
+const Calendar: FC = () => (
   <Column alignItems='center'>
     <Text color='gray.n800' textAlign='center' fontWeight={400} marginTop='8px' variant='bigger'>
       Calendário
@@ -10,4 +10,4 @@ const Calendario: FC = () => (
   </Column>
 );
 
-export default Calendario;
+export default Calendar;
